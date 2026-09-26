@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MSc Robotics thesis by Stijn Bier — low-cost onboard camera tracking for a compliant hand-rehabilitation device.">
+  <title>Camera-Based Hand-Trainer Motion Tracking | Stijn Bier</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .th-page { padding-top:72px; padding-bottom:110px; }
+    .th-back { display:inline-block; margin-bottom:52px; font-weight:800; }
+    .th-hero {
+      display:grid;
+      grid-template-columns:minmax(0,.95fr) minmax(400px,1.05fr);
+      gap:64px;
+      align-items:center;
+      padding-bottom:76px;
+    }
+    .th-hero h1 {
+      margin:0 0 24px;
+      font-size:clamp(3.2rem,6vw,5.6rem);
+      line-height:.98;
+      letter-spacing:-.055em;
+    }
+    .th-lead {
+      max-width:700px;
+      margin:0 0 28px;
+      color:var(--muted);
+      font-size:1.14rem;
+      line-height:1.66;
+    }
+    .th-tags, .th-tech {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .th-tags span, .th-tech span {
+      padding:7px 11px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:.78rem;
+      font-weight:800;
+    }
+    .th-hero-visual {
+      overflow:hidden;
+      aspect-ratio:4/3;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:var(--surface);
+      box-shadow:0 22px 55px rgba(20,28,35,.08);
+    }
+    .th-hero-visual img {
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+    .th-stats {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-bottom:90px;
+    }
+    .th-stat {
+      padding:22px 20px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--surface);
+    }
+    .th-stat strong, .th-stat span { display:block; }
+    .th-stat strong { margin-bottom:5px; font-size:1.45rem; letter-spacing:-.025em; }
+    .th-stat span { color:var(--muted); font-size:.9rem; line-height:1.45; }
+    .th-section {
+      padding:82px 0;
+      border-top:1px solid var(--line);
+    }
+    .th-two-col {
+      display:grid;
+      grid-template-columns:.82fr 1.18fr;
+      gap:84px;
+      align-items:start;
+    }
+    .th-section h2 {
+      margin:0;
+      max-width:640px;
+      font-size:clamp(2.15rem,4vw,3.5rem);
+      line-height:1.06;
+      letter-spacing:-.04em;
+    }
+    .th-copy { max-width:740px; }
+    .th-copy p {
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:1.05rem;
+      line-height:1.7;
+    }
+    .th-heading {
+      max-width:760px;
+      margin-bottom:34px;
+    }
+    .th-heading p:last-child {
+      color:var(--muted);
+      font-size:1.03rem;
+      line-height:1.65;
+    }
+    .th-wide-media, .th-side-media {
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:var(--surface);
+    }
+    .th-wide-media img, .th-side-media img {
+      width:100%;
+      display:block;
+    }
+    .th-wide-media figcaption {
+      padding:12px 16px;
+      color:var(--muted);
+      font-size:.84rem;
+      line-height:1.45;
+    }
+    .th-video {
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:#111;
+      box-shadow:0 22px 55px rgba(20,28,35,.06);
+    }
+    .th-video video {
+      width:100%;
+      max-height:720px;
+      display:block;
+      background:#111;
+    }
+    .th-results {
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:12px;
+      margin-top:34px;
+    }
+    .th-result {
+      padding:22px 18px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:var(--surface);
+    }
+    .th-result strong, .th-result span { display:block; }
+    .th-result strong { margin-bottom:7px; font-size:1.35rem; letter-spacing:-.025em; }
+    .th-result span { color:var(--muted); font-size:.84rem; line-height:1.45; }
+    .th-note {
+      margin-top:24px;
+      padding:18px 20px;
+      border-left:4px solid var(--accent);
+      border-radius:0 12px 12px 0;
+      background:var(--accent-soft);
+      color:#3b5053;
+      line-height:1.6;
+    }
+    .th-list {
+      margin:26px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px 28px;
+    }
+    .th-list li {
+      position:relative;
+      padding-left:20px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .th-list li::before {
+      content:"";
+      position:absolute;
+      left:0; top:.72em;
+      width:6px; height:6px;
+      border-radius:50%;
+      background:var(--accent);
+    }
+    .th-tech { margin-top:24px; }
+    .th-tech span { padding:9px 13px; font-size:.82rem; }
+
+    @media (max-width:1100px) {
+      .th-results { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width:980px) {
+      .th-hero { grid-template-columns:1fr; }
+      .th-hero-visual { max-width:680px; }
+      .th-stats { grid-template-columns:1fr; }
+    }
+    @media (max-width:820px) {
+      .th-page { padding-top:48px; }
+      .th-two-col { grid-template-columns:1fr; gap:28px; }
+      .th-list, .th-results { grid-template-columns:1fr; }
+      .th-section { padding:64px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">STIJN BIER</a>
+      <nav class="nav">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container th-page">
+    <a class="th-back" href="../index.html#projects">← Back to projects</a>
+
+    <section class="th-hero">
+      <div>
+        <p class="eyebrow">MSc Robotics Thesis · TU Delft · 2026</p>
+        <h1>Camera-Based Hand-Trainer Motion Tracking</h1>
+        <p class="th-lead">
+          I designed and validated a low-cost onboard computer-vision system that
+          independently tracks both sides of a compliant hand-rehabilitation device in real time.
+        </p>
+        <div class="th-tags">
+          <span>Python</span><span>OpenCV</span><span>ArUco</span>
+          <span>Raspberry Pi</span><span>OptiTrack</span><span>UDP</span>
+        </div>
+      </div>
+
+      <figure class="th-hero-visual">
+        <img src="../assets/images/thesis-device.png" alt="Alpha Hand Trainer with onboard camera and ArUco markers">
+      </figure>
+    </section>
+
+    <section class="th-stats">
+      <div class="th-stat">
+        <strong>8.5 / 10</strong>
+        <span>Final MSc thesis grade</span>
+      </div>
+      <div class="th-stat">
+        <strong>1 camera · 2 markers</strong>
+        <span>Independent tracking of thumb- and finger-side shell motion</span>
+      </div>
+      <div class="th-stat">
+        <strong>190 g · €56.44</strong>
+        <span>Complete prototype mass · tracking hardware cost</span>
+      </div>
+    </section>
+
+    <section class="th-section th-two-col">
+      <div>
+        <p class="eyebrow">Context</p>
+        <h2>A trade-off in portable hand rehabilitation</h2>
+      </div>
+      <div class="th-copy">
+        <p>Compact rehabilitation devices often measure only a few inputs such as grip force or finger pressure. This keeps them simple, but does not separately capture movements such as hand opening, thumb motion or pinching.</p>
+        <p>Wearable alternatives can capture more detailed finger movement, but may be harder for users with impaired hand function to put on independently. The Alpha Hand Trainer uses a compliant shell to retain a simple portable form while allowing richer hand movement.</p>
+      </div>
+    </section>
+
+    <section class="th-section th-two-col">
+      <div>
+        <p class="eyebrow">Challenge</p>
+        <h2>Measure a compliant structure without filling it with sensors</h2>
+      </div>
+      <div class="th-copy">
+        <p>The shell deforms differently during opening, grasping and pinch-like movements. Measuring both shell sides with embedded sensing could require multiple sensors, wiring and electronics on the moving structure.</p>
+        <p>I investigated whether one onboard camera and two passive markers could provide separate, accurate and responsive measurements while keeping the system compact and low-cost.</p>
+      </div>
+    </section>
+
+    <section class="th-section th-two-col">
+      <div>
+        <p class="eyebrow">Solution</p>
+        <h2>One camera, two markers, onboard processing</h2>
+      </div>
+      <div class="th-copy">
+        <p>A wide-angle RGB camera and Raspberry Pi Zero 2 W were integrated into the trainer. Two ArUco markers identify the thumb- and finger-side shell regions, allowing planar position and 3D pose to be estimated independently.</p>
+        <p>The complete processing pipeline runs onboard and sends position, orientation, timestamps and tracking-state information wirelessly to a host application over UDP.</p>
+      </div>
+    </section>
+
+    <section class="th-section">
+      <div class="th-heading">
+        <p class="eyebrow">Demo</p>
+        <h2>Tracking the shell in real time</h2>
+        <p>The physical trainer is shown alongside live front- and top-view visualizations generated from the tracked marker motion.</p>
+      </div>
+      <div class="th-video">
+        <video controls playsinline preload="metadata" poster="../assets/images/thesis-demo-poster.png">
+          <source src="../assets/videos/thesis-demo.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </section>
+
+    <section class="th-section">
+      <div class="th-heading">
+        <p class="eyebrow">System architecture</p>
+        <h2>From camera frame to rehabilitation input</h2>
+        <p>The onboard pipeline combines image preprocessing, marker detection, optical-flow fallback, pose estimation, smoothing and wireless transmission.</p>
+      </div>
+      <figure class="th-wide-media">
+        <img src="../assets/images/thesis-pipeline.png" alt="Onboard camera-based tracking pipeline">
+        <figcaption>Frame acquisition → preprocessing → ArUco detection / Lucas–Kanade fallback → pose estimation → post-processing → UDP output.</figcaption>
+      </figure>
+    </section>
+
+    <section class="th-section th-two-col">
+      <div>
+        <p class="eyebrow">Validation</p>
+        <h2>Compared against OptiTrack ground truth</h2>
+      </div>
+      <div>
+        <div class="th-copy">
+          <p>I designed the validation setup and compared the camera-derived measurements with an independent seven-camera OptiTrack system recording at 240 Hz.</p>
+          <p>The evaluation covered tracking accuracy, orientation, static precision, detection robustness, output rate and camera-to-client latency across different lighting conditions and movement speeds.</p>
+        </div>
+        <figure class="th-side-media">
+          <img src="../assets/images/thesis-optitrack.png" alt="OptiTrack validation setup for the Alpha Hand Trainer">
+        </figure>
+      </div>
+    </section>
+
+    <section class="th-section">
+      <div class="th-heading">
+        <p class="eyebrow">Key results</p>
+        <h2>Technical performance</h2>
+        <p>Headline results from the validation; the complete experimental analysis is available in the thesis.</p>
+      </div>
+
+      <div class="th-results">
+        <article class="th-result"><strong>1.35 mm</strong><span>Thumb-side P95 planar error</span></article>
+        <article class="th-result"><strong>2.85 mm</strong><span>Finger-side P95 planar error</span></article>
+        <article class="th-result"><strong>0.436 mm</strong><span>Worst-case MDM in intended lighting</span></article>
+        <article class="th-result"><strong>≥99.6%</strong><span>Direct detection in intended conditions</span></article>
+        <article class="th-result"><strong>89.1 ms</strong><span>Worst-case P95 camera-to-client latency</span></article>
+      </div>
+
+      <div class="th-note">
+        <strong>One limitation remained:</strong> the ≥20 Hz output-rate target was narrowly missed at 1000 lx, with a worst intended-condition mean of 19.29 Hz.
+      </div>
+    </section>
+
+    <section class="th-section th-two-col">
+      <div>
+        <p class="eyebrow">My contribution</p>
+        <h2>End-to-end engineering</h2>
+      </div>
+      <div>
+        <ul class="th-list">
+          <li>System concept and camera / marker integration</li>
+          <li>Python and OpenCV tracking software</li>
+          <li>ArUco detection and PnP pose estimation</li>
+          <li>Lucas–Kanade optical-flow fallback</li>
+          <li>Custom exposure-control strategy</li>
+          <li>UDP communication and live visualization</li>
+          <li>OptiTrack reference reconstruction and validation</li>
+          <li>Experimental design, data analysis and performance evaluation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="th-section">
+      <p class="eyebrow">Technology</p>
+      <div class="th-tech">
+        <span>Python</span><span>OpenCV</span><span>ArUco</span><span>PnP / IPPE</span>
+        <span>Lucas–Kanade Optical Flow</span><span>Raspberry Pi Zero 2 W</span>
+        <span>RGB Camera</span><span>UDP / JSON</span><span>OptiTrack</span>
+        <span>SolidWorks</span><span>Data Analysis</span><span>Experimental Validation</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© <span id="year"></span> Stijn Bier</span>
+      <span><a href="../index.html">Portfolio home</a></span>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

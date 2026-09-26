@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Phosphoenix JIP project by Stijn Bier — AI-based phosphene visualization for navigation support in visual prosthesis.">
+  <title>Phosphoenix | Stijn Bier</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .px-page {
+      padding-top: 72px;
+      padding-bottom: 110px;
+    }
+
+    .px-back {
+      display: inline-block;
+      margin-bottom: 52px;
+      font-weight: 800;
+    }
+
+    .px-hero {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr);
+      gap: 62px;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .px-hero h1 {
+      margin: 0 0 24px;
+      font-size: clamp(3.2rem, 6vw, 5.6rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+
+    .px-lead {
+      max-width: 700px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.65;
+    }
+
+    .px-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .px-tags span {
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .px-hero-visual {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 22px 55px rgba(20, 28, 35, .08);
+    }
+
+    .px-hero-visual img {
+      width: 100%;
+      display: block;
+    }
+
+    .px-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 90px;
+    }
+
+    .px-stat {
+      padding: 22px 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .px-stat strong,
+    .px-stat span {
+      display: block;
+    }
+
+    .px-stat strong {
+      margin-bottom: 5px;
+      font-size: 1.45rem;
+      letter-spacing: -.025em;
+    }
+
+    .px-stat span {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .px-section {
+      padding: 82px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .px-two-col {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 84px;
+      align-items: start;
+    }
+
+    .px-section h2 {
+      margin: 0;
+      max-width: 640px;
+      font-size: clamp(2.15rem, 4vw, 3.5rem);
+      line-height: 1.06;
+      letter-spacing: -.04em;
+    }
+
+    .px-copy {
+      max-width: 740px;
+    }
+
+    .px-copy p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .px-pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .px-step {
+      position: relative;
+      min-height: 180px;
+      padding: 22px 19px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+
+    .px-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      z-index: 2;
+      right: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--bg);
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .px-step span {
+      display: block;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .px-step strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.02rem;
+    }
+
+    .px-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .px-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .px-card {
+      padding: 26px 24px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+
+    .px-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .px-card p,
+    .px-card li {
+      color: var(--muted);
+    }
+
+    .px-card ul {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    .px-card li {
+      margin-bottom: 9px;
+      line-height: 1.5;
+    }
+
+    .px-note {
+      margin-top: 28px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      background: var(--accent-soft);
+      color: #3b5053;
+      line-height: 1.6;
+    }
+
+    .px-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 24px;
+    }
+
+    .px-tech span {
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    @media (max-width: 980px) {
+      .px-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .px-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .px-pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .px-step:not(:last-child)::after {
+        content: "↓";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -21px;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .px-page {
+        padding-top: 48px;
+      }
+
+      .px-two-col,
+      .px-cards {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .px-section {
+        padding: 64px 0;
+      }
+    }
+  
+    .px-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .px-logo {
+      max-width: 150px;
+      max-height: 58px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    @media (max-width: 560px) {
+      .px-logo {
+        max-width: 125px;
+        max-height: 48px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">STIJN BIER</a>
+      <nav class="nav">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container px-page">
+    <a class="px-back" href="../index.html#projects">← Back to projects</a>
+
+    <section class="px-hero">
+      <div>
+        <div class="px-logo-row">
+          <img class="px-logo"
+               src="../assets/images/phosphoenix-logo.png"
+               alt="Phosphoenix logo">
+          <p class="eyebrow" style="margin:0;">Joint Interdisciplinary Project · TU Delft</p>
+        </div>
+        <h1>Phosphoenix</h1>
+        <p class="px-lead">
+          AI-based phosphene visualization for navigation support in visual prosthesis.
+          We explored how live camera images can be simplified into a small set of
+          meaningful visual cues that could support safer outdoor navigation for people
+          with severe vision loss.
+        </p>
+
+        <div class="px-tags">
+          <span>Computer Vision</span>
+          <span>YOLO11-seg</span>
+          <span>Custom Dataset</span>
+          <span>Depth Estimation</span>
+          <span>Image Processing</span>
+          <span>Phosphene Simulation</span>
+        </div>
+      </div>
+
+      <figure class="px-hero-visual">
+        <img
+          src="../assets/images/phosphoenix-pipeline.png"
+          alt="Phosphoenix selection process from camera image through segmentation and depth estimation to phosphene output">
+      </figure>
+    </section>
+
+    <section class="px-stats">
+      <div class="px-stat">
+        <strong>JIP</strong>
+        <span>TU Delft Joint Interdisciplinary Project with an external company partner</span>
+      </div>
+      <div class="px-stat">
+        <strong>5 disciplines</strong>
+        <span>Engineering, robotics, computer science, data/AI and physics-oriented expertise</span>
+      </div>
+      <div class="px-stat">
+        <strong>9.0 / 10</strong>
+        <span>Final project grade</span>
+      </div>
+    </section>
+
+    <section class="px-section px-two-col">
+      <div>
+        <p class="eyebrow">What is JIP?</p>
+        <h2>An interdisciplinary industry project</h2>
+      </div>
+
+      <div class="px-copy">
+        <p>
+          The Joint Interdisciplinary Project (JIP) is a TU Delft project in which
+          students from different technical backgrounds work together with an external
+          partner on a real engineering challenge.
+        </p>
+        <p>
+          Our team worked with Phosphoenix and combined expertise from robotics,
+          computer science, data science and AI, physics, mechanical engineering and
+          related technical disciplines. The project required us to combine research,
+          software development, system design and user-oriented decision making.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-section px-two-col">
+      <div>
+        <p class="eyebrow">The project</p>
+        <h2>Making limited artificial vision useful for navigation</h2>
+      </div>
+
+      <div class="px-copy">
+        <p>
+          A phosphene is a perceived point or pattern of light created by direct
+          stimulation of the visual system. A future visual prosthesis can use many
+          such points to communicate visual information, but the available resolution
+          is still extremely limited compared with natural vision.
+        </p>
+        <p>
+          The central challenge was therefore not to recreate a complete camera image,
+          but to decide which parts of a scene are most useful for navigation.
+          The project focused on extracting relevant outdoor objects, surfaces and
+          spatial information and converting those into a simplified phosphene view.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-section">
+      <p class="eyebrow">Our approach</p>
+      <h2>From a camera frame to navigation-relevant information</h2>
+
+      <div class="px-pipeline">
+        <article class="px-step">
+          <span>01</span>
+          <strong>Camera image</strong>
+          <p>Start with live visual input from the user's surroundings.</p>
+        </article>
+
+        <article class="px-step">
+          <span>02</span>
+          <strong>Scene segmentation</strong>
+          <p>Detect navigation-relevant objects and surfaces using a YOLO11 segmentation model.</p>
+        </article>
+
+        <article class="px-step">
+          <span>03</span>
+          <strong>Depth & prioritization</strong>
+          <p>Use depth information and class relevance to reduce clutter and emphasize useful scene elements.</p>
+        </article>
+
+        <article class="px-step">
+          <span>04</span>
+          <strong>Phosphene representation</strong>
+          <p>Convert selected outlines and scene information into a simplified phosphene view.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="px-section">
+      <p class="eyebrow">What we did</p>
+      <h2>Model selection, dataset development and real-time processing</h2>
+
+      <div class="px-cards">
+        <article class="px-card">
+          <h3>Segmentation models</h3>
+          <ul>
+            <li>Compared multiple segmentation approaches and model architectures.</li>
+            <li>Evaluated the trade-off between segmentation quality and inference speed.</li>
+            <li>Selected YOLO11l-seg as a suitable base for navigation-focused segmentation.</li>
+          </ul>
+        </article>
+
+        <article class="px-card">
+          <h3>Custom dataset</h3>
+          <ul>
+            <li>Adapted the Mapillary dataset toward outdoor navigation.</li>
+            <li>Modified and reorganized classes to focus on information that matters for safe mobility.</li>
+            <li>Trained and fine-tuned a custom YOLO segmentation model on the modified dataset.</li>
+          </ul>
+        </article>
+
+        <article class="px-card">
+          <h3>Depth information</h3>
+          <ul>
+            <li>Compared different approaches for estimating environmental depth.</li>
+            <li>Used DepthAnythingV2 as the depth-estimation component in the final concept.</li>
+            <li>Explored class- and distance-based prioritization to reduce visual clutter.</li>
+          </ul>
+        </article>
+
+        <article class="px-card">
+          <h3>Phosphene output</h3>
+          <ul>
+            <li>Converted selected scene information into simplified visual outlines.</li>
+            <li>Used phosphene simulation to inspect how the processed scene could be represented.</li>
+            <li>Developed the main building blocks of a navigation-oriented real-time perception pipeline.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="px-section px-two-col">
+      <div>
+        <p class="eyebrow">My contribution</p>
+        <h2>Segmentation model evaluation and custom model development</h2>
+      </div>
+
+      <div class="px-copy">
+        <p>
+          My main focus was the computer-vision side of the project. Together with
+          another team member, I coordinated the comparison and evaluation of different
+          pretrained segmentation models and datasets.
+        </p>
+        <p>
+          I then worked on adapting the dataset toward navigation, training and
+          fine-tuning the custom YOLO model, and evaluating how the resulting
+          segmentation could be used to select relevant visual information for the
+          phosphene representation.
+        </p>
+        <p>
+          Beyond my own work package, I contributed to the broader system decisions,
+          testing and integration discussions within the interdisciplinary team.
+        </p>
+
+        <div class="px-note">
+          <strong>Confidentiality:</strong> this portfolio only shows high-level project
+          information and an approved presentation figure. Internal implementation details,
+          code and project data are intentionally omitted.
+        </div>
+      </div>
+    </section>
+
+    <section class="px-section">
+      <p class="eyebrow">Technology</p>
+      <div class="px-tech">
+        <span>Python</span>
+        <span>YOLO11-seg</span>
+        <span>Custom Model Training</span>
+        <span>Mapillary</span>
+        <span>DepthAnythingV2</span>
+        <span>Computer Vision</span>
+        <span>Instance Segmentation</span>
+        <span>Image Processing</span>
+        <span>Dataset Preparation</span>
+        <span>Phosphene Simulation</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© <span id="year"></span> Stijn Bier</span>
+      <span><a href="../index.html">Portfolio home</a></span>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

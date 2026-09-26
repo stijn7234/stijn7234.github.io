@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Stijn Bier — MSc Robotics, BSc Mechanical Engineering, building robotic systems across hardware and software.">
+  <title>Stijn Bier | Robotics Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ---------- HERO PROFILE ---------- */
+    .profile-card {
+      width: min(100%, 440px);
+      min-height: 210px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+      align-items: center;
+      justify-self: end;
+    }
+
+    .profile-photo {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .profile-card strong,
+    .profile-card span {
+      display: block;
+    }
+
+    .profile-card strong {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .profile-card span {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: .92rem;
+    }
+
+    /* ---------- PROJECT IMAGES ---------- */
+    .project-image {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #f5f7f8;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform .35s ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.02);
+    }
+
+    /* Per-project crop control */
+    .thesis-img {
+      object-fit: cover;
+      object-position: center 50%;
+    }
+
+    .bb-img {
+      object-fit: cover;
+      object-position: center 55%;
+    }
+
+    .phosphoenix-img {
+      object-fit: contain;
+      object-position: center;
+      background: #000;
+    }
+
+    .crusher-img {
+      object-fit: cover;
+      object-position: center 50%;
+    }
+
+    /* ---------- EDUCATION ---------- */
+    .education-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 24px 0;
+    }
+
+    .education-item {
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .education-item strong,
+    .education-item span {
+      display: block;
+    }
+
+    .education-item strong {
+      font-size: .9rem;
+      margin-bottom: 3px;
+    }
+
+    .education-item span {
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    @media (max-width: 980px) {
+      .profile-card {
+        justify-self: start;
+        width: min(100%, 520px);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .profile-card {
+        grid-template-columns: 110px 1fr;
+        min-height: 0;
+        padding: 18px;
+        gap: 16px;
+      }
+
+      .profile-photo {
+        width: 110px;
+        height: 110px;
+        border-radius: 16px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .profile-card {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-photo {
+        width: 130px;
+        height: 130px;
+      }
+    }
+  
+    /* ---------- PROFILE CARD SIZE FIX ---------- */
+    .hero {
+      grid-template-columns: minmax(0, 1.35fr) 390px;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .profile-card {
+      box-sizing: border-box;
+      width: 390px;
+      min-width: 390px;
+      min-height: 230px;
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 165px minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      justify-self: end;
+    }
+
+    .profile-photo {
+      width: 165px;
+      height: 165px;
+      flex: none;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+    }
+
+    .profile-card > div {
+      min-width: 0;
+    }
+
+    .profile-card strong {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+
+    .profile-card span {
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1000px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .profile-card {
+        width: min(100%, 520px);
+        min-width: 0;
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .profile-card {
+        width: 100%;
+        grid-template-columns: 120px minmax(0, 1fr);
+        min-height: 0;
+        padding: 18px;
+        gap: 16px;
+      }
+
+      .profile-photo {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">STIJN BIER</a>
+      <nav class="nav">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-copy">
+        <p class="eyebrow">MSc Robotics · BSc Mechanical Engineering · TU Delft</p>
+        <h1>I build and test robotic systems across hardware and software.</h1>
+        <p class="hero-text">
+          I enjoy turning technical ideas into working prototypes — combining mechanical
+          design, electronics, computer vision and software, then learning from testing
+          what works and what needs to change.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">View projects</a>
+          <a class="button secondary" href="https://github.com/stijn7234" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button secondary" href="https://nl.linkedin.com/in/stijn-bier-895b671ba" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <aside class="profile-card" aria-label="Profile summary">
+        <img class="profile-photo"
+             src="assets/images/profile.jpeg"
+             alt="Stijn Bier"
+             onerror="this.onerror=null; this.src='assets/images/profile.png';">
+        <div>
+          <strong>Stijn Bier</strong>
+          <span>Robotics Engineer</span>
+          <span>MSc Robotics · BSc Mechanical Engineering</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section container" id="projects">
+      <div class="section-heading">
+        <p class="eyebrow">Selected work</p>
+        <h2>Projects</h2>
+        <p>Robotics, computer vision, embedded systems and rapid prototyping.</p>
+      </div>
+
+      <div class="project-grid">
+        <a class="project-card featured" href="projects/thesis.html">
+          <div class="project-image">
+            <img class="thesis-img"
+                 src="assets/images/alpha.png"
+                 alt="Alpha Hand Trainer with onboard camera tracking">
+          </div>
+          <div class="project-content">
+            <div class="tags"><span>Computer Vision</span><span>Embedded</span><span>Validation</span></div>
+            <h3>Camera-Based Hand-Trainer Motion Tracking</h3>
+            <p>MSc thesis: a low-cost onboard tracking system for measuring compliant hand-trainer motion in real time.</p>
+            <span class="project-link">View project →</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="projects/beachbot.html">
+          <div class="project-image">
+            <img class="bb-img"
+                 src="assets/images/BB.JPG"
+                 alt="BB beach robot">
+          </div>
+          <div class="project-content">
+            <div class="tags"><span>Robotics</span><span>VR</span><span>LiDAR</span></div>
+            <h3>Project BB (VR-Controlled Beach Robot)</h3>
+            <p>Remote robot platform combining VR teleoperation, camera feedback, a robotic arm and onboard safety sensing.</p>
+            <span class="project-link">View project →</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="projects/phosphoenix.html">
+          <div class="project-image">
+            <img class="phosphoenix-img"
+                 src="assets/images/phosphenes.png"
+                 alt="Phosphoenix computer-vision pipeline">
+          </div>
+          <div class="project-content">
+            <div class="tags"><span>YOLO</span><span>AI</span><span>Image Processing</span></div>
+            <h3>Phosphoenix Vision Pipeline</h3>
+            <p>Custom-trained segmentation and visual-processing pipeline for navigation-oriented phosphene representations.</p>
+            <span class="project-link">View project →</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="projects/cancrusher.html">
+          <div class="project-image">
+            <img class="crusher-img"
+                 src="assets/images/cancrusher.jpg"
+                 alt="Automated can crusher prototype">
+          </div>
+          <div class="project-content">
+            <div class="tags"><span>Prototyping</span><span>CAD</span><span>Arduino</span></div>
+            <h3>Can Crusher</h3>
+            <p>Compact automated can-processing prototype combining sensing, motor control, UI and a custom sorting mechanism.</p>
+            <span class="project-link">View project →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section split container" id="about">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2>Curious, hands-on and happiest when something actually moves</h2>
+      </div>
+      <div class="about-copy">
+        <p>
+          My background combines a BSc in Mechanical Engineering with an MSc in Robotics
+          from Delft University of Technology. That combination shaped the way I like to
+          work: understanding the physical system first, then using electronics and software
+          to make it do something useful.
+        </p>
+
+        <p>
+          I am naturally curious and tend to learn by building. I enjoy unfamiliar technical
+          problems, quick prototypes and the iterative process of testing, debugging and
+          improving a design. The projects I enjoy most sit somewhere between mechanics,
+          embedded hardware and intelligent software rather than inside just one discipline.
+        </p>
+
+        <div class="education-row">
+          <div class="education-item">
+            <strong>MSc Robotics</strong>
+            <span>TU Delft · 2024–2026</span>
+          </div>
+          <div class="education-item">
+            <strong>BSc Mechanical Engineering</strong>
+            <span>TU Delft · 2020–2024</span>
+          </div>
+        </div>
+
+        <div class="skill-list">
+          <span>Python</span><span>OpenCV</span><span>YOLO</span><span>Arduino</span>
+          <span>Raspberry Pi</span><span>SolidWorks</span><span>3D Printing</span>
+          <span>MATLAB</span><span>Git</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact container" id="contact">
+      <p class="eyebrow">Contact</p>
+      <h2>Interested in working together?</h2>
+      <p>I'm interested in robotics and R&amp;D roles where hardware and software come together.</p>
+      <div class="contact-links">
+        <a href="mailto:stijnbier@live.nl">stijnbier@live.nl</a>
+        <a href="https://github.com/stijn7234" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://nl.linkedin.com/in/stijn-bier-895b671ba" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© <span id="year"></span> Stijn Bier</span>
+      <span>Built with HTML, CSS &amp; a little JavaScript.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
