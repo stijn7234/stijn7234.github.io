@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bachelor End Project by Stijn Bier: redesign and validation of the pulley system for the MATE gait rehabilitation device.">
+  <title>MATE Pulley System Redesign | Stijn Bier</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .bep-page {
+      padding-top: 72px;
+      padding-bottom: 110px;
+    }
+
+    .bep-back {
+      display: inline-block;
+      margin-bottom: 52px;
+      font-weight: 800;
+    }
+
+    .bep-hero {
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(420px, 1.08fr);
+      gap: 64px;
+      align-items: center;
+      padding-bottom: 76px;
+    }
+
+    .bep-hero h1 {
+      margin: 0 0 24px;
+      font-size: clamp(3.2rem, 6vw, 5.6rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+
+    .bep-lead {
+      max-width: 700px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 1.14rem;
+      line-height: 1.66;
+    }
+
+    .bep-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .bep-tags span,
+    .bep-tech span {
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .bep-hero-visual {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 22px 55px rgba(20, 28, 35, .08);
+      aspect-ratio: 16 / 10;
+    }
+
+    .bep-hero-visual img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .bep-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 90px;
+    }
+
+    .bep-stat {
+      padding: 22px 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .bep-stat strong,
+    .bep-stat span {
+      display: block;
+    }
+
+    .bep-stat strong {
+      margin-bottom: 5px;
+      font-size: 1.45rem;
+      letter-spacing: -.025em;
+    }
+
+    .bep-stat span {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .bep-section {
+      padding: 82px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .bep-two-col {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 84px;
+      align-items: start;
+    }
+
+    .bep-section h2 {
+      margin: 0;
+      max-width: 650px;
+      font-size: clamp(2.15rem, 4vw, 3.5rem);
+      line-height: 1.06;
+      letter-spacing: -.04em;
+    }
+
+    .bep-copy {
+      max-width: 740px;
+    }
+
+    .bep-copy p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .bep-org-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .bep-org-link:hover {
+      text-decoration: underline;
+    }
+
+    .bep-media {
+      overflow: hidden;
+      margin-top: 34px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 22px 55px rgba(20, 28, 35, .06);
+    }
+
+    .bep-media img {
+      width: 100%;
+      display: block;
+    }
+
+    .bep-caption {
+      padding: 12px 16px;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.5;
+      border-top: 1px solid var(--line);
+    }
+
+    .bep-process {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .bep-step {
+      position: relative;
+      min-height: 190px;
+      padding: 22px 19px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+
+    .bep-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      z-index: 2;
+      right: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--bg);
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .bep-step span {
+      display: block;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .bep-step strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.02rem;
+    }
+
+    .bep-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .bep-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .bep-gallery figure {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    .bep-gallery img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: block;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .bep-validation {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .bep-card {
+      padding: 26px 24px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+
+    .bep-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .bep-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .bep-video {
+      overflow: hidden;
+      margin-top: 34px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #111;
+      box-shadow: 0 22px 55px rgba(20, 28, 35, .06);
+    }
+
+    .bep-video video {
+      width: 100%;
+      max-height: 760px;
+      display: block;
+      background: #111;
+    }
+
+    .bep-video-note {
+      padding: 11px 16px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: .83rem;
+    }
+
+    .bep-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 1100px) {
+      .bep-process {
+        grid-template-columns: 1fr;
+      }
+
+      .bep-step {
+        min-height: auto;
+      }
+
+      .bep-step:not(:last-child)::after {
+        content: "↓";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -21px;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .bep-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .bep-hero-visual {
+        max-width: 680px;
+      }
+
+      .bep-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .bep-page {
+        padding-top: 48px;
+      }
+
+      .bep-two-col,
+      .bep-gallery,
+      .bep-validation {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .bep-section {
+        padding: 64px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">STIJN BIER</a>
+      <nav class="nav">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#about">About</a>
+        <a href="../cv.html">CV</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container bep-page">
+    <a class="bep-back" href="../index.html#projects">← Back to projects</a>
+
+    <section class="bep-hero">
+      <div>
+        <p class="eyebrow">
+          Bachelor End Project · Mechanical Engineering ·
+          <a class="bep-org-link"
+             href="https://www.tudelft.nl/en/"
+             target="_blank"
+             rel="noreferrer">TU Delft</a>
+          · 2024
+        </p>
+
+        <h1>MATE Pulley System Redesign</h1>
+
+        <p class="bep-lead">
+          Redesign and validation of a pulley mount system for the MATE, a passive
+          tendon-based gait rehabilitation device. The project focused on allowing
+          the pulleys to follow changing tendon directions while reducing derailing,
+          wear and improving usability.
+        </p>
+
+        <div class="bep-tags">
+          <span>Mechanical Design</span>
+          <span>CAD</span>
+          <span>Prototyping</span>
+          <span>FEA</span>
+          <span>Sensor Testing</span>
+          <span>Validation</span>
+        </div>
+      </div>
+
+      <figure class="bep-hero-visual">
+        <img src="../assets/images/bep-hero.png"
+             alt="Final pulley system designed for the MATE rehabilitation device">
+      </figure>
+    </section>
+
+    <section class="bep-stats">
+      <div class="bep-stat">
+        <strong>8.5 / 10</strong>
+        <span>Final Bachelor End Project grade</span>
+      </div>
+
+      <div class="bep-stat">
+        <strong>0 derailments</strong>
+        <span>Observed with the final design during the 30-second validation tests</span>
+      </div>
+
+      <div class="bep-stat">
+        <strong>42° measured</strong>
+        <span>Maximum pulley operating range during testing, within the 50° design range</span>
+      </div>
+    </section>
+
+    <section class="bep-section bep-two-col">
+      <div>
+        <p class="eyebrow">The system</p>
+        <h2>What is the MATE?</h2>
+      </div>
+
+      <div class="bep-copy">
+        <p>
+          The MATE, or Minimally Actuated Tendon-based exercise Environment, is a
+          rehabilitation device developed to support gait training after stroke.
+          A patient walks on a treadmill while elastic tendons are connected to the
+          legs and routed through a system of pulleys.
+        </p>
+
+        <p>
+          As one leg moves backwards, the tendon arrangement helps guide the opposite
+          leg forwards. This creates a coordinated walking pattern while avoiding the
+          need for a large actively actuated exoskeleton.
+        </p>
+      </div>
+    </section>
+
+    <section class="bep-section bep-two-col">
+      <div>
+        <p class="eyebrow">The original problem</p>
+        <h2>The pulleys could not properly follow the tendons</h2>
+      </div>
+
+      <div class="bep-copy">
+        <p>
+          During walking, the direction of each tendon continuously changes. The old
+          pulley mounts were largely fixed in orientation and could therefore not
+          follow this movement sufficiently.
+        </p>
+
+        <p>
+          As a result, the tendons could leave the pulley groove and derail. This
+          caused additional friction, chafing and visible wear to both the tendons
+          and pulleys. The redesign therefore needed to guide the tendon over its full
+          range of motion while minimizing derailment and improving adjustability.
+        </p>
+
+        <figure class="bep-media">
+          <img src="../assets/images/bep-old-problem.png"
+               alt="Example of tendon derailing from the old pulley system">
+          <figcaption class="bep-caption">
+            Example of the original derailment problem in the old MATE pulley setup.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="bep-section">
+      <p class="eyebrow">Design process</p>
+      <h2>From requirements to a validated mechanical design</h2>
+
+      <div class="bep-process">
+        <article class="bep-step">
+          <span>01</span>
+          <strong>Requirements</strong>
+          <p>
+            Analyse the old setup and determine the required tendon angles, loads,
+            usability constraints and main failure modes.
+          </p>
+        </article>
+
+        <article class="bep-step">
+          <span>02</span>
+          <strong>Concept generation</strong>
+          <p>
+            Develop multiple pulley and joint concepts and compare them using weighted
+            performance criteria.
+          </p>
+        </article>
+
+        <article class="bep-step">
+          <span>03</span>
+          <strong>Rapid prototypes</strong>
+          <p>
+            Manufacture 3D-printed concepts to inspect movement, geometry and possible
+            failure modes early in the design process.
+          </p>
+        </article>
+
+        <article class="bep-step">
+          <span>04</span>
+          <strong>Machined prototype</strong>
+          <p>
+            Translate the selected spherical-joint principle into a functional
+            prototype that could be mounted on the MATE frame.
+          </p>
+        </article>
+
+        <article class="bep-step">
+          <span>05</span>
+          <strong>Final design</strong>
+          <p>
+            Improve weight, durability, friction, adjustability and tendon guidance,
+            followed by experimental validation.
+          </p>
+        </article>
+      </div>
+
+      <figure class="bep-media">
+        <img src="../assets/images/bep-concepts.png"
+             alt="Preliminary pulley concepts developed during the Bachelor End Project">
+        <figcaption class="bep-caption">
+          Preliminary concepts used to explore different pulley guidance and joint mechanisms.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="bep-section bep-two-col">
+      <div>
+        <p class="eyebrow">Final design</p>
+        <h2>A 3-DOF pulley mount that follows the tendon direction</h2>
+      </div>
+
+      <div class="bep-copy">
+        <p>
+          The final design uses a spherical-joint principle so the pulley head can
+          rotate in three degrees of freedom and align itself with the changing tendon
+          direction. The mount is adjustable along the aluminium frame and its mounting
+          angle can be set for different pulley positions.
+        </p>
+
+        <p>
+          The design was further refined with stainless-steel sheet components,
+          an aluminium bearing casing, low-friction bearing surfaces and a derailing
+          guard. Compared with the first machined prototype, the final assembly was
+          reduced from 0.580 kg to 0.387 kg.
+        </p>
+
+        <div class="bep-gallery">
+          <figure>
+            <img src="../assets/images/bep-exploded.png"
+                 alt="Exploded view of the final MATE pulley system">
+            <figcaption class="bep-caption">Exploded view of the final pulley assembly.</figcaption>
+          </figure>
+
+          <figure>
+            <img src="../assets/images/bep-final-action.png"
+                 alt="Final pulley system installed on the MATE">
+            <figcaption class="bep-caption">Final design installed on the MATE.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="bep-section">
+      <p class="eyebrow">Validation</p>
+      <h2>Testing the design instead of stopping at CAD</h2>
+
+      <div class="bep-validation">
+        <article class="bep-card">
+          <h3>Motion capture and IMU</h3>
+          <p>
+            Camera footage and an IMU mounted to the pulleys were used to investigate
+            pulley orientation and verify that the design could follow the required
+            tendon motion.
+          </p>
+        </article>
+
+        <article class="bep-card">
+          <h3>Derailment testing</h3>
+          <p>
+            The old corner pulleys derailed repeatedly during the 30-second tests.
+            No derailments were observed with the final product.
+          </p>
+        </article>
+
+        <article class="bep-card">
+          <h3>Force sensing</h3>
+          <p>
+            Load cells were used at both ends of a tendon to investigate pulley
+            friction and compare the old and redesigned arrangements.
+          </p>
+        </article>
+
+        <article class="bep-card">
+          <h3>Finite element analysis</h3>
+          <p>
+            SolidWorks FEA was used to evaluate structural behaviour under the
+            expected pulley loads and support geometry and material decisions.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bep-section">
+      <p class="eyebrow">Demo</p>
+      <h2>The final pulley system in operation</h2>
+
+      <div class="bep-video">
+        <video controls muted playsinline
+               poster="../assets/images/bep-final-action.png">
+          <source src="../assets/videos/bep-demo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <div class="bep-video-note">
+          Final design operating on the MATE rehabilitation setup. Video playback is muted.
+        </div>
+      </div>
+    </section>
+
+    <section class="bep-section">
+      <p class="eyebrow">Technology</p>
+
+      <div class="bep-tech">
+        <span>SolidWorks</span>
+        <span>CAD</span>
+        <span>FEA</span>
+        <span>3D Printing</span>
+        <span>Machining</span>
+        <span>ESP32</span>
+        <span>IMU</span>
+        <span>Force Sensors</span>
+        <span>Python</span>
+        <span>C++ / Arduino</span>
+        <span>Experimental Validation</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© <span id="year"></span> Stijn Bier</span>
+      <span><a href="../index.html">Portfolio home</a></span>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

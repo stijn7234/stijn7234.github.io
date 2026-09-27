@@ -1,1 +1,0 @@
-Add short compressed MP4/WebM demo videos in this folder.
