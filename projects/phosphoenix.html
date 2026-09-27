@@ -309,6 +309,17 @@
       }
     }
 
+  
+    .external-org {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .external-org:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
   </style>
 </head>
 
@@ -330,10 +341,17 @@
     <section class="px-hero">
       <div>
         <div class="px-logo-row">
-          <img class="px-logo"
-               src="../assets/images/phosphoenix-logo.png"
-               alt="Phosphoenix logo">
-          <p class="eyebrow" style="margin:0;">Joint Interdisciplinary Project · TU Delft</p>
+          <a class="external-org" href="https://www.phosphoenix.nl/" target="_blank" rel="noreferrer" aria-label="Visit Phosphoenix website">
+            <img class="px-logo"
+                 src="../assets/images/phosphoenix-logo.png"
+                 alt="Phosphoenix logo">
+          </a>
+          <p class="eyebrow" style="margin:0;">
+            Joint Interdisciplinary Project ·
+            <a class="external-org" href="https://www.tudelft.nl/en/" target="_blank" rel="noreferrer">TU Delft</a>
+            ·
+            <a class="external-org" href="https://www.phosphoenix.nl/" target="_blank" rel="noreferrer">Phosphoenix</a>
+          </p>
         </div>
         <h1>Phosphoenix</h1>
         <p class="px-lead">
@@ -388,7 +406,7 @@
           partner on a real engineering challenge.
         </p>
         <p>
-          Our team worked with Phosphoenix and combined expertise from robotics,
+          Our team worked with <a class="external-org" href="https://www.phosphoenix.nl/" target="_blank" rel="noreferrer">Phosphoenix</a> and combined expertise from robotics,
           computer science, data science and AI, physics, mechanical engineering and
           related technical disciplines. The project required us to combine research,
           software development, system design and user-oriented decision making.
